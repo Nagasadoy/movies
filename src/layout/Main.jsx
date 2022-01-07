@@ -13,7 +13,7 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        let url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=matrix`;
+        let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=matrix`;
         console.log(url);
         fetch(url)
             .then(response => response.json())
@@ -21,12 +21,16 @@ class Main extends React.Component {
                  movies: data.Search,
                   loading: false 
             })
+            .catch((err) => {
+                console.log(err);
+                this.setState({loading: false})
+            })
         );
     }
 
     searchMovies = (str, filter='all') => {
         this.setState({loading: true});
-        let url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${filter === 'all' ? '' :`&type=${filter}`}`;
+        let url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${filter === 'all' ? '' :`&type=${filter}`}`;
         console.log(url);
         fetch(url)
             .then(response => response.json())
